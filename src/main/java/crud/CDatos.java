@@ -2,8 +2,6 @@ package crud;
 // @author amdtr
 
 import java.sql.CallableStatement;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
@@ -36,15 +34,13 @@ public class CDatos {
     public void mostrarDatos(JTable tabla) {
         Conexion objetoConexion = new Conexion();
         DefaultTableModel modelo = new DefaultTableModel();
-        String consulta = "";
+        String consulta = "SELECT * FROM productos WHERE estado = true;";
 
         modelo.addColumn("ID");
         modelo.addColumn("Codigo");
         modelo.addColumn("Nombre");
         modelo.addColumn("Precio");
         modelo.addColumn("Disponibles");
-
-        consulta = "SELECT * FROM productos WHERE estado = true;";
 
         try {
             Statement st = objetoConexion.establecerConexion().createStatement();

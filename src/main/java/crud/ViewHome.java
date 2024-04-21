@@ -221,6 +221,7 @@ public class ViewHome extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearActionPerformed
+        
         if (txtCodigo.getText().isEmpty() && txtNombre.getText().isEmpty() && txtPrecio.getText().isEmpty() && txtUnidades.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Debe llenar todos los campos");
         } else {
@@ -239,6 +240,7 @@ public class ViewHome extends javax.swing.JFrame {
 
     private void bntEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntEliminarActionPerformed
         datos.eliminarRegistro(txtId);
+        limpiar();
         datos.mostrarDatos(tabla);
     }//GEN-LAST:event_bntEliminarActionPerformed
 
