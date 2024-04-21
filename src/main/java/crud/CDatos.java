@@ -109,7 +109,6 @@ public class CDatos {
     }
 
     public void seleccionar(JTable tabla, JTextField txtId, JTextField codigo, JTextField nombre, JTextField precio, JTextField unidades) {
-        Conexion objetoConexion = new Conexion();
 
         int fila = tabla.getSelectedRow();
 
