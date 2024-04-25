@@ -3,6 +3,7 @@ package crud;
 
 import java.sql.CallableStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -23,7 +24,7 @@ public class CDatos {
             cs.setInt(4, Integer.parseInt(unidades.getText()));
             cs.execute();
             System.out.println("se guardaron los datos");
-        } catch (Exception e) {
+        } catch (SQLException e) {
             System.out.println("No se guardaron los datos, error: " + e);
         } finally {
             objetoConexion.closedConexion();
@@ -33,7 +34,12 @@ public class CDatos {
 
     public void mostrarDatos(JTable tabla) {
         Conexion objetoConexion = new Conexion();
-        DefaultTableModel modelo = new DefaultTableModel();
+        DefaultTableModel modelo = new DefaultTableModel() {
+            @Override
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return false;
+            }
+        };
         String consulta = "SELECT * FROM productos WHERE estado = true;";
 
         modelo.addColumn("ID");
@@ -59,7 +65,7 @@ public class CDatos {
 
             }
 
-        } catch (Exception e) {
+        } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "error: " + e);
         } finally {
             objetoConexion.closedConexion();
@@ -77,7 +83,7 @@ public class CDatos {
 
             cs.execute();
             JOptionPane.showMessageDialog(null, "Registro eliminado");
-        } catch (Exception e) {
+        } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "error: " + e);
         } finally {
             objetoConexion.closedConexion();
@@ -100,7 +106,7 @@ public class CDatos {
             cs.execute();
             JOptionPane.showMessageDialog(null, "Datos modificados");
 
-        } catch (Exception e) {
+        } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error al modificar los datos: " + e);
         } finally {
             objetoConexion.closedConexion();
@@ -155,9 +161,11 @@ public class CDatos {
 
             }
 
-        } catch (Exception e) {
+        } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e);
 
+        }finally{
+            objetoConexion.closedConexion();
         }
 
     }
