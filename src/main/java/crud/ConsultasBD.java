@@ -10,14 +10,14 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
-public class CDatos {
+public class ConsultasBD {
 
     public void CrearProducto(JTextField codigo, JTextField nombre, JTextField precio, JTextField unidades) {
-        Conexion objetoConexion = new Conexion();
+        Conexion objConexion = new Conexion();
         String consulta = "INSERT INTO productos(codigo,nombre,precio,unidades)VALUES (?,?,?,?);";
 
         try {
-            CallableStatement cs = objetoConexion.establecerConexion().prepareCall(consulta);
+            CallableStatement cs = objConexion.establecerConexion().prepareCall(consulta);
             cs.setString(1, codigo.getText());
             cs.setString(2, nombre.getText());
             cs.setDouble(3, Double.parseDouble(precio.getText()));
@@ -27,13 +27,13 @@ public class CDatos {
         } catch (SQLException e) {
             System.out.println("No se guardaron los datos, error: " + e);
         } finally {
-            objetoConexion.closedConexion();
+            objConexion.closedConexion();
         }
 
     }
 
     public void mostrarDatos(JTable tabla) {
-        Conexion objetoConexion = new Conexion();
+        Conexion objConexion = new Conexion();
         DefaultTableModel modelo = new DefaultTableModel() {
             @Override
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -49,7 +49,7 @@ public class CDatos {
         modelo.addColumn("Disponibles");
 
         try {
-            Statement st = objetoConexion.establecerConexion().createStatement();
+            Statement st = objConexion.establecerConexion().createStatement();
             ResultSet rs = st.executeQuery(consulta);
 
             while (rs.next()) {
@@ -68,17 +68,17 @@ public class CDatos {
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "error: " + e);
         } finally {
-            objetoConexion.closedConexion();
+            objConexion.closedConexion();
         }
 
     }
 
     public void eliminarRegistro(JTextField txtId) {
-        Conexion objetoConexion = new Conexion();
+        Conexion objConexion = new Conexion();
         String consulta = "UPDATE productos SET `estado` = false WHERE id = ?;";
 
         try {
-            CallableStatement cs = objetoConexion.establecerConexion().prepareCall(consulta);
+            CallableStatement cs = objConexion.establecerConexion().prepareCall(consulta);
             cs.setString(1, txtId.getText());
 
             cs.execute();
@@ -86,17 +86,17 @@ public class CDatos {
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "error: " + e);
         } finally {
-            objetoConexion.closedConexion();
+            objConexion.closedConexion();
         }
 
     }
 
     public void modificarRegistros(JTextField txtId, JTextField codigo, JTextField nombre, JTextField precio, JTextField unidades) {
-        Conexion objetoConexion = new Conexion();
+        Conexion objConexion = new Conexion();
         String consulta = "UPDATE productos SET  codigo = ?, nombre = ?, precio = ?, unidades = ? WHERE id = ?;";
 
         try {
-            CallableStatement cs = objetoConexion.establecerConexion().prepareCall(consulta);
+            CallableStatement cs = objConexion.establecerConexion().prepareCall(consulta);
             cs.setString(1, codigo.getText());
             cs.setString(2, nombre.getText());
             cs.setDouble(3, Double.parseDouble(precio.getText()));
@@ -109,7 +109,7 @@ public class CDatos {
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error al modificar los datos: " + e);
         } finally {
-            objetoConexion.closedConexion();
+            objConexion.closedConexion();
         }
 
     }
@@ -130,7 +130,7 @@ public class CDatos {
     }
 
     public void buscarRegistro(JTable tabla, JTextField txtId, JTextField codigo, JTextField nombre, JTextField precio, JTextField unidades) {
-        Conexion objetoConexion = new Conexion();
+        Conexion objConexion = new Conexion();
         DefaultTableModel modelo = new DefaultTableModel();
 
         modelo.addColumn("ID");
@@ -142,7 +142,7 @@ public class CDatos {
         String consulta = "SELECT * FROM productos WHERE id = (?);";
 
         try {
-            CallableStatement cs = objetoConexion.establecerConexion().prepareCall(consulta);
+            CallableStatement cs = objConexion.establecerConexion().prepareCall(consulta);
             cs.setInt(1, Integer.parseInt(txtId.getText()));
             cs.execute();
 
@@ -165,7 +165,7 @@ public class CDatos {
             JOptionPane.showMessageDialog(null, e);
 
         }finally{
-            objetoConexion.closedConexion();
+            objConexion.closedConexion();
         }
 
     }

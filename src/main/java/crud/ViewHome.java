@@ -5,12 +5,12 @@ import javax.swing.JOptionPane;
 // @author amdtr
 public class ViewHome extends javax.swing.JFrame {
 
-    private CDatos datos;
+    private ConsultasBD datos;
 
     // Creates new form ViewHome
     public ViewHome() {
         initComponents();
-        datos = new CDatos();
+        datos = new ConsultasBD();
         datos.mostrarDatos(tabla);
 
     }
