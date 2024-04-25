@@ -3,6 +3,7 @@ package crud;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.SQLException;
 
 public class Conexion {
 
@@ -20,7 +21,7 @@ public class Conexion {
         try {
             conectar = DriverManager.getConnection(url, user, pass);
             System.out.println("Se conecto a la base de datos");
-        } catch (Exception e) {
+        } catch (SQLException e) {
             System.out.println("Error al conecta la base de datos. Error : " + e);
         }
 
