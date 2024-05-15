@@ -34,7 +34,7 @@ public class Conexion {
                 conectar.close();
                 System.out.println("Conexion cerrada");
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             System.out.println("No se pudo cerrar la conexion");
         }
     }
